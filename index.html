@@ -9,7 +9,6 @@
 </head>
 <body>
 
-  <!-- LOADING SCREEN -->
   <div id="loading-screen">
     <div class="loader-content">
       <div class="logo-text">NEON<br><span>DRIFT</span></div>
@@ -18,7 +17,6 @@
     </div>
   </div>
 
-  <!-- MAIN MENU -->
   <div id="main-menu" class="hidden">
     <div class="menu-bg-overlay"></div>
     <div class="menu-content">
@@ -29,11 +27,10 @@
         <button class="menu-btn" id="btn-garage">GARAGE</button>
         <button class="menu-btn" id="btn-challenges">CHALLENGES</button>
       </div>
-      <div class="menu-credits">Built for speed &nbsp;|&nbsp; v1.0</div>
+      <div class="menu-credits">Built for speed &nbsp;|&nbsp; v3.0</div>
     </div>
   </div>
 
-  <!-- GARAGE SCREEN -->
   <div id="garage-screen" class="hidden">
     <div class="garage-header">
       <button class="back-btn" id="garage-back">← BACK</button>
@@ -43,7 +40,6 @@
     <div class="garage-grid" id="garage-grid"></div>
   </div>
 
-  <!-- CHALLENGES SCREEN -->
   <div id="challenges-screen" class="hidden">
     <div class="garage-header">
       <button class="back-btn" id="challenges-back">← BACK</button>
@@ -52,67 +48,68 @@
     <div class="challenges-list" id="challenges-list"></div>
   </div>
 
-  <!-- GAME CANVAS -->
   <canvas id="game-canvas" class="hidden"></canvas>
 
-  <!-- HUD -->
   <div id="hud" class="hidden">
-    <!-- Speedometer -->
     <div class="hud-speed">
       <div id="speed-val">0</div>
       <div class="speed-unit">KM/H</div>
       <div class="gear-label">GEAR <span id="gear-val">1</span></div>
     </div>
-
-    <!-- Top bar -->
     <div class="hud-top">
       <div class="hud-coins">¢ <span id="hud-coins">0</span></div>
       <div class="hud-location" id="hud-location">NEON CITY</div>
       <div class="hud-cam-btn" id="cam-btn">📷 CAM</div>
     </div>
-
-    <!-- Active mission -->
-    <div class="hud-mission" id="hud-mission">
+    <div class="hud-mission">
       <div class="mission-label">MISSION</div>
       <div class="mission-title" id="mission-title">Explore the city</div>
       <div class="mission-desc" id="mission-desc">Drive around and discover zones</div>
       <div class="mission-progress-bar"><div id="mission-progress-fill"></div></div>
     </div>
-
-    <!-- Drift score -->
     <div class="hud-drift" id="hud-drift-ui">
       <div class="drift-label">DRIFT</div>
       <div class="drift-score" id="drift-score">0</div>
       <div class="drift-mult" id="drift-mult">x1</div>
     </div>
-
-    <!-- Minimap -->
     <div class="hud-minimap">
       <canvas id="minimap-canvas" width="160" height="160"></canvas>
       <div class="minimap-label">MAP</div>
     </div>
-
-    <!-- Controls hint -->
     <div class="hud-controls">
-      <span>WASD / ARROWS — DRIVE</span>
-      <span>SPACE — HANDBRAKE</span>
+      <span>WASD — DRIVE</span>
+      <span>SPACE — HANDBRAKE DRIFT</span>
       <span>R — RESET</span>
-      <span>M — MENU</span>
+      <span>C — CAMERA</span>
     </div>
-
-    <!-- Notification -->
     <div class="hud-notif hidden" id="hud-notif"></div>
-
-    <!-- Challenge complete overlay -->
     <div class="challenge-flash hidden" id="challenge-flash">
       <div class="cf-inner">
         <div class="cf-label" id="cf-label">CHALLENGE COMPLETE</div>
         <div class="cf-score" id="cf-score">+500 ¢</div>
       </div>
     </div>
+
+    <!-- Race HUD -->
+    <div id="race-hud" class="hidden">
+      <div class="race-name" id="race-name">CITY SPRINT</div>
+      <div class="race-timer" id="race-timer">0.0s</div>
+      <div class="race-cp" id="race-cp">0/5</div>
+      <div class="race-par" id="race-par"></div>
+    </div>
+
+    <!-- Race start prompt (shown when near a start ring) -->
+    <div id="race-prompt" class="hidden">
+      <div class="rp-inner">
+        <div class="rp-title">RACE AVAILABLE</div>
+        <div class="rp-name" id="rp-name">CITY SPRINT</div>
+        <div class="rp-reward" id="rp-reward"></div>
+        <button class="rp-btn" id="rp-btn">START RACE</button>
+        <div class="rp-hint">or drive away to cancel</div>
+      </div>
+    </div>
   </div>
 
-  <!-- Pause/Menu overlay while in game -->
   <div id="pause-menu" class="hidden">
     <div class="pause-inner">
       <div class="pause-title">PAUSED</div>
@@ -122,7 +119,18 @@
     </div>
   </div>
 
+  <!-- Core Three.js r128 (proven working) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <!-- Post-processing addons (attach to THREE namespace) -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/CopyShader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/LuminosityHighPassShader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/EffectComposer.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/RenderPass.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/ShaderPass.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/UnrealBloomPass.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
   <script src="game.js"></script>
 </body>
 </html>
